@@ -1,0 +1,2958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>RAGE.exe — Created by Arjuuw</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#f3f0ea;
+    --card:#ffffff;
+    --text:#171717;
+    --muted:#77736c;
+    --line:#dfdbd3;
+    --soft:#f5f3ef;
+    --dark:#1b1b1b;
+    --red:#a93c3c;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+button{
+    font:inherit;
+    border:0;
+    cursor:pointer;
+}
+
+.app{
+    width:min(1000px,100%);
+    min-height:100vh;
+    margin:auto;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER */
+
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:7px 2px 15px;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:#999;
+}
+
+.header-actions{
+    display:flex;
+    gap:7px;
+}
+
+.small-btn{
+    background:white;
+    border:1px solid var(--line);
+    color:#222;
+    padding:9px 12px;
+    border-radius:9px;
+    font-size:11px;
+    font-weight:700;
+}
+
+/* SCREENS */
+
+.screen{
+    display:none;
+    flex:1;
+}
+
+.screen.active{
+    display:flex;
+    flex-direction:column;
+}
+
+/* START */
+
+.start-card{
+    margin:auto 0;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:25px;
+    padding:clamp(30px,7vw,70px) 25px;
+    text-align:center;
+    box-shadow:0 15px 45px rgba(0,0,0,.04);
+}
+
+.eyebrow{
+    color:#999;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2px;
+    margin-bottom:13px;
+}
+
+.start-title{
+    margin:0;
+    font-size:clamp(58px,14vw,115px);
+    line-height:.8;
+    letter-spacing:-7px;
+}
+
+.subtitle{
+    max-width:590px;
+    margin:28px auto;
+    color:var(--muted);
+    line-height:1.65;
+    font-size:14px;
+}
+
+.feature-grid{
+    max-width:650px;
+    margin:25px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.feature{
+    background:var(--soft);
+    border:1px solid #e6e2db;
+    padding:14px 8px;
+    border-radius:11px;
+}
+
+.feature strong{
+    display:block;
+    font-size:17px;
+}
+
+.feature span{
+    color:#999;
+    font-size:9px;
+    font-weight:700;
+}
+
+.primary{
+    background:var(--dark);
+    color:white;
+    border-radius:11px;
+    padding:14px 27px;
+    font-weight:900;
+    transition:.18s;
+}
+
+.primary:hover{
+    transform:translateY(-2px);
+    background:#2b2b2b;
+}
+
+.primary:active{
+    transform:scale(.97);
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+    margin-bottom:8px;
+}
+
+.stat{
+    background:white;
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:9px 10px;
+}
+
+.stat-label{
+    color:#999;
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.stat-value{
+    font-size:18px;
+    font-weight:900;
+    margin-top:3px;
+}
+
+/* RAGE */
+
+.rage-container{
+    background:white;
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:10px 12px;
+    margin-bottom:8px;
+}
+
+.rage-header{
+    display:flex;
+    justify-content:space-between;
+    color:#777;
+    font-size:9px;
+    font-weight:900;
+    margin-bottom:6px;
+}
+
+.rage-track{
+    height:7px;
+    background:#ece9e3;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.rage-fill{
+    height:100%;
+    width:0%;
+    background:#222;
+    transition:width:.25s;
+}
+
+/* GAME CARD */
+
+.game-card{
+    position:relative;
+    flex:1;
+    min-height:550px;
+    background:white;
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.level-header{
+    min-height:65px;
+    border-bottom:1px solid #eeeae4;
+    padding:14px 17px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.level-title{
+    font-size:15px;
+    font-weight:900;
+}
+
+.level-description{
+    margin-top:3px;
+    color:#999;
+    font-size:11px;
+}
+
+.level-tag{
+    padding:7px 9px;
+    border-radius:7px;
+    background:#f1eee9;
+    font-size:9px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+#playArea{
+    position:relative;
+    height:calc(100% - 65px);
+    min-height:485px;
+    overflow:hidden;
+    touch-action:manipulation;
+}
+
+/* COMMON */
+
+.rage-btn{
+    background:#191919;
+    color:white;
+    border-radius:9px;
+    padding:13px 19px;
+    font-weight:900;
+    user-select:none;
+    touch-action:manipulation;
+}
+
+.center-message{
+    position:absolute;
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+}
+
+.center-message h2{
+    margin:0 0 8px;
+    font-size:clamp(23px,6vw,39px);
+}
+
+.center-message p{
+    color:#888;
+    font-size:12px;
+}
+
+/* LEVEL 1 */
+
+.target{
+    position:absolute;
+    width:74px;
+    height:74px;
+    border-radius:50%;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* LEVEL 2 */
+
+.question{
+    position:absolute;
+    width:min(600px,90%);
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+.question h2{
+    font-size:clamp(20px,5vw,30px);
+}
+
+.answers{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.answer{
+    padding:14px 8px;
+    background:var(--soft);
+    border:1px solid var(--line);
+    border-radius:9px;
+    font-weight:800;
+}
+
+.answer:hover{
+    background:#eae7e1;
+}
+
+/* LEVEL 3 */
+
+.progress-box{
+    position:absolute;
+    width:min(580px,88%);
+    left:50%;
+    top:43%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+.percent{
+    font-size:50px;
+    font-weight:900;
+    letter-spacing:-3px;
+}
+
+.progress-track{
+    width:100%;
+    height:18px;
+    background:#e8e5df;
+    border:1px solid #d9d5cd;
+    border-radius:30px;
+    overflow:hidden;
+    margin:18px 0;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:#222;
+    transition:.12s linear;
+}
+
+/* LEVEL 4 */
+
+.escape-target{
+    position:absolute;
+    width:82px;
+    height:82px;
+    border-radius:11px;
+    background:#222;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    transition:left .12s,top .12s,transform .12s;
+}
+
+/* LEVEL 5 */
+
+.almost{
+    position:absolute;
+    left:50%;
+    top:40%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+}
+
+.almost-number{
+    font-size:clamp(65px,16vw,120px);
+    font-weight:900;
+    letter-spacing:-6px;
+}
+
+/* LEVEL 6 */
+
+.achievement{
+    position:absolute;
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+}
+
+.achievement-icon{
+    width:75px;
+    height:75px;
+    margin:auto;
+    border:2px solid #222;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:900;
+}
+
+.achievement h2{
+    margin:18px 0 6px;
+}
+
+/* LEVEL 7 */
+
+.betrayal{
+    position:absolute;
+    left:50%;
+    top:35%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+}
+
+.betrayal-controls{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:22px;
+}
+
+.control{
+    width:75px;
+    height:55px;
+    background:#f1eee9;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-weight:900;
+}
+
+.control.active{
+    background:#222;
+    color:white;
+}
+
+/* LEVEL 8 */
+
+.loading{
+    position:absolute;
+    left:50%;
+    top:40%;
+    transform:translate(-50%,-50%);
+    width:min(520px,88%);
+    text-align:center;
+}
+
+.loading-number{
+    font-size:65px;
+    font-weight:900;
+}
+
+.loading-track{
+    height:15px;
+    background:#e9e6e0;
+    border-radius:20px;
+    overflow:hidden;
+    margin:17px 0;
+}
+
+.loading-fill{
+    height:100%;
+    width:0%;
+    background:#222;
+}
+
+/* LEVEL 9 */
+
+.combo{
+    position:absolute;
+    left:50%;
+    top:39%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+}
+
+.combo-number{
+    font-size:70px;
+    font-weight:900;
+}
+
+.combo-button{
+    margin-top:15px;
+}
+
+/* LEVEL 10 */
+
+.final-level{
+    position:absolute;
+    left:50%;
+    top:40%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    text-align:center;
+}
+
+.final-level h2{
+    font-size:clamp(28px,7vw,48px);
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translate(-50%,25px);
+    background:#191919;
+    color:white;
+    padding:11px 16px;
+    border-radius:9px;
+    font-size:11px;
+    font-weight:800;
+    opacity:0;
+    pointer-events:none;
+    transition:.22s;
+    z-index:1000;
+    white-space:nowrap;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* PAUSE */
+
+.pause{
+    position:fixed;
+    inset:0;
+    background:rgba(243,240,234,.88);
+    backdrop-filter:blur(5px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:500;
+}
+
+.pause.show{
+    display:flex;
+}
+
+.pause-card{
+    width:min(390px,100%);
+    background:white;
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:40px 25px;
+    text-align:center;
+}
+
+/* GAME OVER */
+
+.gameover{
+    margin:auto 0;
+    background:white;
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:50px 20px;
+    text-align:center;
+}
+
+.gameover h1{
+    margin:0;
+    font-size:clamp(45px,12vw,85px);
+    letter-spacing:-5px;
+}
+
+.final-score{
+    margin:22px;
+    color:#888;
+}
+
+.final-score strong{
+    display:block;
+    color:#222;
+    font-size:38px;
+}
+
+.result-grid{
+    max-width:430px;
+    margin:20px auto 25px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.result{
+    background:var(--soft);
+    padding:15px;
+    border-radius:10px;
+}
+
+.result small{
+    color:#999;
+    display:block;
+    font-size:9px;
+    font-weight:800;
+}
+
+.result strong{
+    font-size:20px;
+}
+
+/* SHAKE */
+
+.shake{
+    animation:shake .3s linear;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-6px)}
+    40%{transform:translateX(6px)}
+    60%{transform:translateX(-5px)}
+    80%{transform:translateX(4px)}
+}
+
+/* FLASH */
+
+.flash{
+    animation:flash .2s;
+}
+
+@keyframes flash{
+    50%{background:#eeeae4}
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    color:#aaa;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:2px;
+    padding:13px 0 2px;
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+    .app{
+        padding:9px;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    .small-btn{
+        padding:8px 9px;
+        font-size:9px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .stat:nth-child(4),
+    .stat:nth-child(5){
+        display:block;
+    }
+
+    .game-card{
+        min-height:560px;
+    }
+
+    #playArea{
+        min-height:495px;
+    }
+
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+
+    .start-title{
+        letter-spacing:-5px;
+    }
+
+    .answers{
+        grid-template-columns:1fr;
+    }
+
+    .level-header{
+        align-items:flex-start;
+    }
+
+    .level-tag{
+        font-size:8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <div class="logo">RAGE<span>.exe</span></div>
+
+    <div class="header-actions">
+        <button class="small-btn" id="soundBtn">Sound: ON</button>
+        <button class="small-btn" id="pauseBtn">Pause</button>
+    </div>
+</header>
+
+
+<!-- START -->
+
+<section class="screen active" id="startScreen">
+
+<div class="start-card">
+
+    <div class="eyebrow">THE MOST REASONABLE GAME EVER MADE</div>
+
+    <h1 class="start-title">RAGE</h1>
+
+    <p class="subtitle">
+        Every level looks simple. Every level has a tiny problem.
+        Sometimes the button moves. Sometimes the rules change.
+        Sometimes the game simply decides that 99% isn't enough.
+    </p>
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <strong>10+</strong>
+            <span>RAGE LEVELS</span>
+        </div>
+
+        <div class="feature">
+            <strong>∞</strong>
+            <span>BETRAYALS</span>
+        </div>
+
+        <div class="feature">
+            <strong>100%</strong>
+            <span>UNFAIRNESS</span>
+        </div>
+
+    </div>
+
+    <button class="primary" id="startBtn">
+        START RAGING
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- GAME -->
+
+<section class="screen" id="gameScreen">
+
+<div class="stats">
+
+    <div class="stat">
+        <div class="stat-label">SCORE</div>
+        <div class="stat-value" id="score">0</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">HIGH</div>
+        <div class="stat-value" id="highScore">0</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">LEVEL</div>
+        <div class="stat-value" id="level">1</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">RAGE</div>
+        <div class="stat-value" id="rageText">0%</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-label">LIVES</div>
+        <div class="stat-value" id="lives">3</div>
+    </div>
+
+</div>
+
+
+<div class="rage-container">
+
+    <div class="rage-header">
+        <span>RAGE METER</span>
+        <span id="rageMessage">CALM</span>
+    </div>
+
+    <div class="rage-track">
+        <div class="rage-fill" id="rageFill"></div>
+    </div>
+
+</div>
+
+
+<div class="game-card" id="gameCard">
+
+    <div class="level-header">
+
+        <div>
+            <div class="level-title" id="levelTitle">
+                Loading...
+            </div>
+
+            <div class="level-description" id="levelDescription">
+                Prepare yourself.
+            </div>
+        </div>
+
+        <div class="level-tag" id="levelTag">
+            LEVEL 1
+        </div>
+
+    </div>
+
+    <div id="playArea"></div>
+
+</div>
+
+</section>
+
+
+<!-- GAME OVER -->
+
+<section class="screen" id="gameOverScreen">
+
+<div class="gameover">
+
+    <div class="eyebrow">RAGE SESSION COMPLETE</div>
+
+    <h1>GAME OVER</h1>
+
+    <div class="final-score">
+        FINAL SCORE
+        <strong id="finalScore">0</strong>
+    </div>
+
+    <div class="result-grid">
+
+        <div class="result">
+            <small>LEVEL</small>
+            <strong id="finalLevel">1</strong>
+        </div>
+
+        <div class="result">
+            <small>HIGH SCORE</small>
+            <strong id="finalHighScore">0</strong>
+        </div>
+
+    </div>
+
+    <button class="primary" id="retryBtn">
+        TRY AGAIN
+    </button>
+
+</div>
+
+</section>
+
+
+<footer>
+    CREATED BY ARJUUW
+</footer>
+
+</div>
+
+
+<!-- PAUSE -->
+
+<div class="pause" id="pauseOverlay">
+
+<div class="pause-card">
+
+    <div class="eyebrow">TEMPORARY ESCAPE</div>
+
+    <h2>GAME PAUSED</h2>
+
+    <p style="color:#888;font-size:13px;">
+        The rage will be waiting for you.
+    </p>
+
+    <button class="primary" id="resumeBtn">
+        RESUME
+    </button>
+
+</div>
+
+</div>
+
+
+<div class="toast" id="toast">
+    Nice try.
+</div>
+
+
+<script>
+
+/* =========================================================
+   RAGE.EXE
+   COMPLETE RAGE-BAIT GAME
+   CREATED BY ARJUUW
+   ========================================================= */
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const gameScreen =
+    document.getElementById("gameScreen");
+
+const gameOverScreen =
+    document.getElementById("gameOverScreen");
+
+const playArea =
+    document.getElementById("playArea");
+
+const gameCard =
+    document.getElementById("gameCard");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+const retryBtn =
+    document.getElementById("retryBtn");
+
+const pauseBtn =
+    document.getElementById("pauseBtn");
+
+const resumeBtn =
+    document.getElementById("resumeBtn");
+
+const pauseOverlay =
+    document.getElementById("pauseOverlay");
+
+const soundBtn =
+    document.getElementById("soundBtn");
+
+const scoreEl =
+    document.getElementById("score");
+
+const highScoreEl =
+    document.getElementById("highScore");
+
+const levelEl =
+    document.getElementById("level");
+
+const rageTextEl =
+    document.getElementById("rageText");
+
+const rageFill =
+    document.getElementById("rageFill");
+
+const rageMessage =
+    document.getElementById("rageMessage");
+
+const livesEl =
+    document.getElementById("lives");
+
+const levelTitle =
+    document.getElementById("levelTitle");
+
+const levelDescription =
+    document.getElementById("levelDescription");
+
+const levelTag =
+    document.getElementById("levelTag");
+
+const toast =
+    document.getElementById("toast");
+
+const finalScore =
+    document.getElementById("finalScore");
+
+const finalLevel =
+    document.getElementById("finalLevel");
+
+const finalHighScore =
+    document.getElementById("finalHighScore");
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let score = 0;
+let level = 1;
+let rage = 0;
+let lives = 3;
+
+let running = false;
+let paused = false;
+
+let soundEnabled = true;
+
+let highScore =
+    Number(localStorage.getItem("rageHighScore")) || 0;
+
+let timers = [];
+
+let audioCtx = null;
+
+highScoreEl.textContent = highScore;
+
+
+/* =========================================================
+   AUDIO
+   ========================================================= */
+
+function initAudio(){
+
+    if(!soundEnabled) return;
+
+    if(!audioCtx){
+
+        audioCtx =
+            new(window.AudioContext ||
+            window.webkitAudioContext)();
+    }
+
+    if(audioCtx.state === "suspended"){
+        audioCtx.resume();
+    }
+}
+
+
+function beep(
+    frequency=400,
+    duration=.08,
+    type="sine"
+){
+
+    if(!soundEnabled) return;
+
+    initAudio();
+
+    if(!audioCtx) return;
+
+    const osc =
+        audioCtx.createOscillator();
+
+    const gain =
+        audioCtx.createGain();
+
+    osc.type = type;
+    osc.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(
+        .045,
+        audioCtx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        audioCtx.currentTime + duration
+    );
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+
+    osc.stop(
+        audioCtx.currentTime + duration
+    );
+}
+
+
+function goodSound(){
+
+    beep(600,.07);
+
+    setTimeout(
+        ()=>beep(800,.08),
+        70
+    );
+}
+
+
+function badSound(){
+
+    beep(150,.13,"square");
+}
+
+
+/* =========================================================
+   UI
+   ========================================================= */
+
+function showScreen(screen){
+
+    startScreen.classList.remove("active");
+    gameScreen.classList.remove("active");
+    gameOverScreen.classList.remove("active");
+
+    screen.classList.add("active");
+}
+
+
+function updateStats(){
+
+    scoreEl.textContent = score;
+    levelEl.textContent = level;
+    livesEl.textContent = lives;
+
+    if(score > highScore){
+
+        highScore = score;
+
+        localStorage.setItem(
+            "rageHighScore",
+            highScore
+        );
+    }
+
+    highScoreEl.textContent = highScore;
+
+    rage =
+        Math.max(
+            0,
+            Math.min(100,rage)
+        );
+
+    rageFill.style.width =
+        rage + "%";
+
+    rageTextEl.textContent =
+        Math.floor(rage) + "%";
+
+    if(rage < 20)
+        rageMessage.textContent = "CALM";
+
+    else if(rage < 40)
+        rageMessage.textContent = "ANNOYED";
+
+    else if(rage < 60)
+        rageMessage.textContent = "WHY?";
+
+    else if(rage < 80)
+        rageMessage.textContent = "SERIOUSLY?";
+
+    else if(rage < 100)
+        rageMessage.textContent = "RAGING";
+
+    else
+        rageMessage.textContent = "MAXIMUM RAGE";
+}
+
+
+function addScore(amount){
+
+    score += amount;
+
+    updateStats();
+}
+
+
+function addRage(amount){
+
+    rage += amount;
+
+    if(rage >= 100){
+
+        rage = 100;
+
+        toastMessage(
+            "MAXIMUM RAGE ACHIEVED"
+        );
+
+    }
+
+    updateStats();
+}
+
+
+function loseLife(){
+
+    lives--;
+
+    addRage(12);
+
+    badSound();
+
+    shake();
+
+    updateStats();
+
+    if(lives <= 0){
+
+        setTimeout(
+            endGame,
+            300
+        );
+    }
+}
+
+
+function toastMessage(message){
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toast.timer);
+
+    toast.timer =
+        setTimeout(
+            ()=>{
+                toast.classList.remove("show");
+            },
+            1200
+        );
+}
+
+
+function shake(){
+
+    gameCard.classList.remove("shake");
+
+    void gameCard.offsetWidth;
+
+    gameCard.classList.add("shake");
+}
+
+
+function flash(){
+
+    gameCard.classList.add("flash");
+
+    setTimeout(
+        ()=>gameCard.classList.remove("flash"),
+        200
+    );
+}
+
+
+/* =========================================================
+   TIMER MANAGEMENT
+   ========================================================= */
+
+function addTimer(id){
+
+    timers.push(id);
+}
+
+
+function clearTimers(){
+
+    timers.forEach(
+        id=>clearTimeout(id)
+    );
+
+    timers = [];
+}
+
+
+function wait(callback,time){
+
+    const id =
+        setTimeout(
+            callback,
+            time
+        );
+
+    addTimer(id);
+
+    return id;
+}
+
+
+/* =========================================================
+   GAME START
+   ========================================================= */
+
+function startGame(){
+
+    initAudio();
+
+    score = 0;
+    level = 1;
+    rage = 0;
+    lives = 3;
+
+    running = true;
+    paused = false;
+
+    pauseOverlay.classList.remove("show");
+
+    pauseBtn.textContent =
+        "Pause";
+
+    updateStats();
+
+    showScreen(gameScreen);
+
+    loadLevel();
+}
+
+
+startBtn.addEventListener(
+    "click",
+    startGame
+);
+
+retryBtn.addEventListener(
+    "click",
+    startGame
+);
+
+
+/* =========================================================
+   PAUSE
+   ========================================================= */
+
+function togglePause(){
+
+    if(!running) return;
+
+    paused = !paused;
+
+    if(paused){
+
+        pauseOverlay.classList.add("show");
+
+        pauseBtn.textContent =
+            "Resume";
+
+    }else{
+
+        pauseOverlay.classList.remove("show");
+
+        pauseBtn.textContent =
+            "Pause";
+
+        /*
+           Reload current level.
+           This deliberately makes pausing
+           slightly suspicious.
+        */
+
+        loadLevel();
+    }
+}
+
+
+pauseBtn.addEventListener(
+    "click",
+    togglePause
+);
+
+resumeBtn.addEventListener(
+    "click",
+    togglePause
+);
+
+
+/* =========================================================
+   SOUND
+   ========================================================= */
+
+soundBtn.addEventListener(
+    "click",
+    ()=>{
+        soundEnabled =
+            !soundEnabled;
+
+        soundBtn.textContent =
+            "Sound: " +
+            (soundEnabled
+                ? "ON"
+                : "OFF");
+
+        if(soundEnabled){
+
+            initAudio();
+
+            beep(500,.07);
+        }
+    }
+);
+
+
+/* =========================================================
+   LEVEL LOADER
+   ========================================================= */
+
+function clearLevel(){
+
+    clearTimers();
+
+    playArea.innerHTML = "";
+}
+
+
+function loadLevel(){
+
+    if(!running || paused)
+        return;
+
+    clearLevel();
+
+    updateStats();
+
+    if(level === 1)
+        level1();
+
+    else if(level === 2)
+        level2();
+
+    else if(level === 3)
+        level3();
+
+    else if(level === 4)
+        level4();
+
+    else if(level === 5)
+        level5();
+
+    else if(level === 6)
+        level6();
+
+    else if(level === 7)
+        level7();
+
+    else if(level === 8)
+        level8();
+
+    else if(level === 9)
+        level9();
+
+    else if(level === 10)
+        level10();
+
+    else
+        endless();
+}
+
+
+/* =========================================================
+   NEXT LEVEL
+   ========================================================= */
+
+function nextLevel(){
+
+    if(!running || paused)
+        return;
+
+    level++;
+
+    addScore(25);
+
+    updateStats();
+
+    wait(
+        loadLevel,
+        350
+    );
+}
+
+
+/* =========================================================
+   LEVEL 1
+   IMPOSSIBLE TARGET
+   ========================================================= */
+
+function level1(){
+
+    levelTitle.textContent =
+        "IMPOSSIBLE TARGET";
+
+    levelDescription.textContent =
+        "Click the target 7 times.";
+
+    levelTag.textContent =
+        "LEVEL 1";
+
+    const target =
+        document.createElement("button");
+
+    target.className =
+        "rage-btn target";
+
+    target.textContent =
+        "CLICK";
+
+    playArea.appendChild(target);
+
+    let clicks = 0;
+
+    function move(){
+
+        const maxX =
+            playArea.clientWidth -
+            target.offsetWidth -
+            8;
+
+        const maxY =
+            playArea.clientHeight -
+            target.offsetHeight -
+            8;
+
+        target.style.left =
+            Math.max(
+                5,
+                Math.random()*maxX
+            ) + "px";
+
+        target.style.top =
+            Math.max(
+                5,
+                Math.random()*maxY
+            ) + "px";
+    }
+
+    wait(move,50);
+
+    target.addEventListener(
+        "pointerdown",
+        ()=>{
+            clicks++;
+
+            addScore(10);
+            addRage(3);
+
+            goodSound();
+
+            if(clicks === 3){
+
+                toastMessage(
+                    "It's getting nervous."
+                );
+            }
+
+            if(clicks === 5){
+
+                target.style.transform =
+                    "scale(.72)";
+
+                toastMessage(
+                    "Why did you get better?"
+                );
+            }
+
+            if(clicks >= 7){
+
+                addScore(100);
+
+                toastMessage(
+                    "TARGET DEFEATED"
+                );
+
+                wait(
+                    nextLevel,
+                    500
+                );
+
+                return;
+            }
+
+            move();
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 2
+   FAKE EASY QUESTION
+   ========================================================= */
+
+function level2(){
+
+    levelTitle.textContent =
+        "VERY EASY QUESTION";
+
+    levelDescription.textContent =
+        "Choose the correct answer.";
+
+    levelTag.textContent =
+        "LEVEL 2";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "question";
+
+    box.innerHTML = `
+        <h2>Which button is correct?</h2>
+
+        <div class="answers">
+
+            <button class="answer">A</button>
+            <button class="answer">B</button>
+            <button class="answer">C</button>
+            <button class="answer">D</button>
+
+        </div>
+    `;
+
+    playArea.appendChild(box);
+
+    const buttons =
+        [...box.querySelectorAll(".answer")];
+
+    let correct =
+        Math.floor(Math.random()*4);
+
+    let attempts = 0;
+
+    buttons.forEach(
+        (button,index)=>{
+
+            button.addEventListener(
+                "click",
+                ()=>{
+
+                    attempts++;
+
+                    if(index === correct){
+
+                        /*
+                           The first "correct" answer
+                           is not actually accepted.
+                        */
+
+                        if(attempts < 3){
+
+                            addRage(8);
+
+                            badSound();
+
+                            shake();
+
+                            correct =
+                                Math.floor(
+                                    Math.random()*4
+                                );
+
+                            toastMessage(
+                                "The answer changed."
+                            );
+
+                            return;
+                        }
+
+                        addScore(120);
+
+                        goodSound();
+
+                        toastMessage(
+                            "Finally."
+                        );
+
+                        wait(
+                            nextLevel,
+                            500
+                        );
+
+                    }else{
+
+                        addRage(9);
+
+                        badSound();
+
+                        shake();
+
+                        toastMessage(
+                            [
+                                "Wrong.",
+                                "Interesting choice.",
+                                "Not that one.",
+                                "Really?"
+                            ][
+                                Math.floor(
+                                    Math.random()*4
+                                )
+                            ]
+                        );
+                    }
+                }
+            );
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 3
+   99% PROGRESS TRAP
+   ========================================================= */
+
+function level3(){
+
+    levelTitle.textContent =
+        "99% FOREVER";
+
+    levelDescription.textContent =
+        "Reach 100%. Simple.";
+
+    levelTag.textContent =
+        "LEVEL 3";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "progress-box";
+
+    box.innerHTML = `
+
+        <div class="percent">0%</div>
+
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+
+        <button class="primary">
+            CONTINUE
+        </button>
+    `;
+
+    playArea.appendChild(box);
+
+    const percent =
+        box.querySelector(".percent");
+
+    const fill =
+        box.querySelector(".progress-fill");
+
+    const button =
+        box.querySelector(".primary");
+
+    let value = 0;
+    let clicks = 0;
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            clicks++;
+
+            value +=
+                Math.floor(
+                    Math.random()*17
+                ) + 10;
+
+            if(value >= 96){
+
+                value = 99;
+
+                addRage(12);
+
+                badSound();
+
+                toastMessage(
+                    "Almost..."
+                );
+
+                wait(
+                    ()=>{
+                        value = 97;
+
+                        fill.style.width =
+                            value + "%";
+
+                        percent.textContent =
+                            value + "%";
+
+                        toastMessage(
+                            "Almost."
+                        );
+                    },
+                    450
+                );
+
+            }else{
+
+                addScore(8);
+
+                addRage(2);
+
+                goodSound();
+            }
+
+            /*
+               Occasionally progress drops.
+            */
+
+            if(
+                clicks > 4 &&
+                Math.random() < .35
+            ){
+
+                value =
+                    Math.max(
+                        10,
+                        value - 20
+                    );
+
+                addRage(10);
+
+                toastMessage(
+                    "Progress recalculated."
+                );
+
+                badSound();
+            }
+
+            fill.style.width =
+                value + "%";
+
+            percent.textContent =
+                Math.floor(value) + "%";
+
+            if(clicks >= 10){
+
+                addScore(150);
+
+                toastMessage(
+                    "100%. FINALLY."
+                );
+
+                wait(
+                    nextLevel,
+                    700
+                );
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 4
+   ESCAPING BUTTON
+   ========================================================= */
+
+function level4(){
+
+    levelTitle.textContent =
+        "CATCH IT";
+
+    levelDescription.textContent =
+        "The square cannot escape.";
+
+    levelTag.textContent =
+        "LEVEL 4";
+
+    const text =
+        document.createElement("div");
+
+    text.className =
+        "center-message";
+
+    text.innerHTML = `
+        <h2>Catch the square.</h2>
+        <p>It has nowhere to go.</p>
+    `;
+
+    playArea.appendChild(text);
+
+    const target =
+        document.createElement("div");
+
+    target.className =
+        "escape-target";
+
+    target.textContent =
+        "CLICK";
+
+    playArea.appendChild(target);
+
+    let clicks = 0;
+
+    function move(){
+
+        const maxX =
+            Math.max(
+                5,
+                playArea.clientWidth -
+                target.offsetWidth -
+                5
+            );
+
+        const maxY =
+            Math.max(
+                5,
+                playArea.clientHeight -
+                target.offsetHeight -
+                5
+            );
+
+        target.style.left =
+            Math.random()*maxX +
+            "px";
+
+        target.style.top =
+            Math.random()*maxY +
+            "px";
+    }
+
+    wait(move,50);
+
+    target.addEventListener(
+        "pointerdown",
+        ()=>{
+
+            clicks++;
+
+            addScore(12);
+            addRage(4);
+
+            goodSound();
+
+            move();
+
+            if(clicks >= 8){
+
+                addScore(120);
+
+                toastMessage(
+                    "HOW DID YOU CATCH IT?"
+                );
+
+                wait(
+                    nextLevel,
+                    500
+                );
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 5
+   ALMOST THERE
+   ========================================================= */
+
+function level5(){
+
+    levelTitle.textContent =
+        "ALMOST THERE";
+
+    levelDescription.textContent =
+        "One final click.";
+
+    levelTag.textContent =
+        "LEVEL 5";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "almost";
+
+    box.innerHTML = `
+
+        <div class="almost-number">
+            99%
+        </div>
+
+        <p style="color:#888;">
+            This is definitely the last step.
+        </p>
+
+        <button class="primary">
+            FINISH
+        </button>
+    `;
+
+    playArea.appendChild(box);
+
+    const number =
+        box.querySelector(".almost-number");
+
+    const button =
+        box.querySelector(".primary");
+
+    let clicks = 0;
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            clicks++;
+
+            if(clicks === 1){
+
+                number.textContent =
+                    "99.1%";
+
+                addRage(8);
+
+                badSound();
+
+                toastMessage(
+                    "Almost."
+                );
+
+            }else if(clicks === 2){
+
+                number.textContent =
+                    "99.7%";
+
+                addRage(10);
+
+                badSound();
+
+                toastMessage(
+                    "VERY almost."
+                );
+
+            }else if(clicks === 3){
+
+                number.textContent =
+                    "99.99%";
+
+                addRage(12);
+
+                badSound();
+
+                toastMessage(
+                    "Seriously?"
+                );
+
+            }else{
+
+                number.textContent =
+                    "100%";
+
+                addScore(180);
+
+                goodSound();
+
+                toastMessage(
+                    "You survived."
+                );
+
+                wait(
+                    nextLevel,
+                    600
+                );
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 6
+   FAKE ACHIEVEMENT
+   ========================================================= */
+
+function level6(){
+
+    levelTitle.textContent =
+        "ACHIEVEMENT UNLOCKED";
+
+    levelDescription.textContent =
+        "Congratulations.";
+
+    levelTag.textContent =
+        "LEVEL 6";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "achievement";
+
+    box.innerHTML = `
+
+        <div class="achievement-icon">
+            ✓
+        </div>
+
+        <h2>Almost Professional</h2>
+
+        <p style="color:#888;">
+            You completed absolutely nothing.
+        </p>
+
+        <button class="primary">
+            CLAIM ACHIEVEMENT
+        </button>
+    `;
+
+    playArea.appendChild(box);
+
+    const button =
+        box.querySelector(".primary");
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            addScore(200);
+
+            goodSound();
+
+            button.textContent =
+                "CLAIMING...";
+
+            wait(
+                ()=>{
+                    button.textContent =
+                        "ERROR";
+
+                    addRage(20);
+
+                    badSound();
+
+                    shake();
+
+                    toastMessage(
+                        "Achievement failed."
+                    );
+
+                    wait(
+                        ()=>{
+                            button.textContent =
+                                "TRY AGAIN";
+
+                            button.onclick = ()=>{
+                                addScore(80);
+
+                                toastMessage(
+                                    "Fine. Achievement claimed."
+                                );
+
+                                wait(
+                                    nextLevel,
+                                    500
+                                );
+                            };
+                        },
+                        700
+                    );
+
+                },
+                900
+            );
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 7
+   RANDOM CONTROL BETRAYAL
+   ========================================================= */
+
+function level7(){
+
+    levelTitle.textContent =
+        "TRUST THE CONTROLS";
+
+    levelDescription.textContent =
+        "Press LEFT and RIGHT in order.";
+
+    levelTag.textContent =
+        "LEVEL 7";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "betrayal";
+
+    box.innerHTML = `
+
+        <h2>Press the highlighted key.</h2>
+
+        <p style="color:#888;">
+            The controls are completely normal.
+        </p>
+
+        <div class="betrayal-controls">
+
+            <button class="control" data-key="LEFT">
+                LEFT
+            </button>
+
+            <button class="control" data-key="RIGHT">
+                RIGHT
+            </button>
+
+        </div>
+    `;
+
+    playArea.appendChild(box);
+
+    const controls =
+        [...box.querySelectorAll(".control")];
+
+    let expected = "LEFT";
+    let count = 0;
+
+    function highlight(){
+
+        controls.forEach(
+            button=>{
+                button.classList.toggle(
+                    "active",
+                    button.dataset.key === expected
+                );
+            }
+        );
+    }
+
+    highlight();
+
+    controls.forEach(
+        button=>{
+
+            button.addEventListener(
+                "click",
+                ()=>{
+
+                    if(
+                        button.dataset.key ===
+                        expected
+                    ){
+
+                        count++;
+
+                        addScore(15);
+
+                        addRage(3);
+
+                        goodSound();
+
+                        /*
+                           Randomly betray the player.
+                        */
+
+                        if(
+                            Math.random() < .35
+                        ){
+
+                            expected =
+                                expected === "LEFT"
+                                    ? "RIGHT"
+                                    : "LEFT";
+
+                            toastMessage(
+                                "Controls reversed."
+                            );
+
+                            addRage(7);
+
+                        }else{
+
+                            expected =
+                                expected === "LEFT"
+                                    ? "RIGHT"
+                                    : "LEFT";
+                        }
+
+                        highlight();
+
+                        if(count >= 8){
+
+                            addScore(150);
+
+                            toastMessage(
+                                "You trusted the controls."
+                            );
+
+                            wait(
+                                nextLevel,
+                                500
+                            );
+                        }
+
+                    }else{
+
+                        loseLife();
+
+                        toastMessage(
+                            "Wrong direction."
+                        );
+
+                        expected =
+                            expected === "LEFT"
+                                ? "RIGHT"
+                                : "LEFT";
+
+                        highlight();
+                    }
+                }
+            );
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 8
+   FAKE LOADING
+   ========================================================= */
+
+function level8(){
+
+    levelTitle.textContent =
+        "LOADING...";
+
+    levelDescription.textContent =
+        "Please wait patiently.";
+
+    levelTag.textContent =
+        "LEVEL 8";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "loading";
+
+    box.innerHTML = `
+
+        <div class="loading-number">
+            0%
+        </div>
+
+        <div class="loading-track">
+            <div class="loading-fill"></div>
+        </div>
+
+        <p style="color:#888;">
+            Do not click anything.
+        </p>
+    `;
+
+    playArea.appendChild(box);
+
+    const number =
+        box.querySelector(".loading-number");
+
+    const fill =
+        box.querySelector(".loading-fill");
+
+    let value = 0;
+
+    function load(){
+
+        value +=
+            Math.random()*4 + 2;
+
+        if(value >= 100){
+
+            value = 100;
+
+            number.textContent =
+                "100%";
+
+            fill.style.width =
+                "100%";
+
+            wait(
+                ()=>{
+                    value = 37;
+
+                    number.textContent =
+                        "37%";
+
+                    fill.style.width =
+                        "37%";
+
+                    addRage(25);
+
+                    badSound();
+
+                    toastMessage(
+                        "Update required."
+                    );
+
+                    wait(
+                        ()=>{
+                            nextLevel();
+                        },
+                        1000
+                    );
+
+                },
+                700
+            );
+
+            return;
+        }
+
+        number.textContent =
+            Math.floor(value) + "%";
+
+        fill.style.width =
+            value + "%";
+
+        const id =
+            requestAnimationFrame(load);
+
+        animationId = id;
+    }
+
+    let animationId =
+        requestAnimationFrame(load);
+
+    /*
+       Clicking anywhere in this level
+       makes the loading slower.
+    */
+
+    playArea.addEventListener(
+        "pointerdown",
+        ()=>{
+            value =
+                Math.max(
+                    0,
+                    value - 10
+                );
+
+            addRage(10);
+
+            badSound();
+
+            toastMessage(
+                "Why did you click?"
+            );
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 9
+   COMBO INTERRUPTER
+   ========================================================= */
+
+function level9(){
+
+    levelTitle.textContent =
+        "KEEP THE COMBO";
+
+    levelDescription.textContent =
+        "Reach a 10-hit combo.";
+
+    levelTag.textContent =
+        "LEVEL 9";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "combo";
+
+    box.innerHTML = `
+
+        <div class="combo-number">
+            0
+        </div>
+
+        <p style="color:#888;">
+            Don't miss.
+        </p>
+
+        <button class="primary combo-button">
+            HIT
+        </button>
+    `;
+
+    playArea.appendChild(box);
+
+    const number =
+        box.querySelector(".combo-number");
+
+    const button =
+        box.querySelector(".combo-button");
+
+    let combo = 0;
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            /*
+               Sometimes the game breaks the combo
+               despite a successful hit.
+            */
+
+            if(
+                combo >= 4 &&
+                Math.random() < .25
+            ){
+
+                combo = 0;
+
+                number.textContent =
+                    "0";
+
+                addRage(20);
+
+                badSound();
+
+                shake();
+
+                toastMessage(
+                    "COMBO INTERRUPTED"
+                );
+
+                return;
+            }
+
+            combo++;
+
+            number.textContent =
+                combo;
+
+            addScore(10 + combo);
+
+            addRage(2);
+
+            goodSound();
+
+            if(combo >= 10){
+
+                addScore(200);
+
+                toastMessage(
+                    "10 HIT COMBO."
+                );
+
+                wait(
+                    nextLevel,
+                    600
+                );
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   LEVEL 10
+   FINAL BETRAYAL
+   ========================================================= */
+
+function level10(){
+
+    levelTitle.textContent =
+        "THE FINAL BUTTON";
+
+    levelDescription.textContent =
+        "Press it to win.";
+
+    levelTag.textContent =
+        "FINAL LEVEL";
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "final-level";
+
+    box.innerHTML = `
+
+        <h2>YOU MADE IT.</h2>
+
+        <p style="color:#888;">
+            One button remains.
+        </p>
+
+        <button class="primary">
+            WIN GAME
+        </button>
+    `;
+
+    playArea.appendChild(box);
+
+    const button =
+        box.querySelector(".primary");
+
+    let attempts = 0;
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+            attempts++;
+
+            if(attempts === 1){
+
+                button.textContent =
+                    "99%";
+
+                addScore(100);
+
+                addRage(20);
+
+                badSound();
+
+                toastMessage(
+                    "Almost won."
+                );
+
+                shake();
+
+            }else if(attempts === 2){
+
+                button.textContent =
+                    "TRY AGAIN";
+
+                addRage(15);
+
+                badSound();
+
+                toastMessage(
+                    "The game changed its mind."
+                );
+
+            }else{
+
+                addScore(500);
+
+                rage =
+                    Math.max(
+                        0,
+                        rage - 30
+                    );
+
+                updateStats();
+
+                goodSound();
+
+                button.textContent =
+                    "YOU WIN";
+
+                toastMessage(
+                    "Okay. You actually won."
+                );
+
+                wait(
+                    ()=>{
+                        level = 11;
+                        loadLevel();
+                    },
+                    1000
+                );
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   ENDLESS MODE
+   ========================================================= */
+
+function endless(){
+
+    levelTitle.textContent =
+        "ENDLESS RAGE";
+
+    levelDescription.textContent =
+        "You thought it was over.";
+
+    levelTag.textContent =
+        "LEVEL " + level;
+
+    const target =
+        document.createElement("button");
+
+    target.className =
+        "rage-btn";
+
+    target.textContent =
+        "KEEP GOING";
+
+    target.style.position =
+        "absolute";
+
+    playArea.appendChild(target);
+
+    let clicks = 0;
+
+    function move(){
+
+        const maxX =
+            Math.max(
+                5,
+                playArea.clientWidth -
+                target.offsetWidth -
+                5
+            );
+
+        const maxY =
+            Math.max(
+                5,
+                playArea.clientHeight -
+                target.offsetHeight -
+                5
+            );
+
+        target.style.left =
+            Math.random()*maxX +
+            "px";
+
+        target.style.top =
+            Math.random()*maxY +
+            "px";
+    }
+
+    wait(move,50);
+
+    target.addEventListener(
+        "pointerdown",
+        ()=>{
+
+            clicks++;
+
+            addScore(
+                15 + level*2
+            );
+
+            addRage(
+                Math.random()*6
+            );
+
+            goodSound();
+
+            move();
+
+            if(clicks % 4 === 0){
+
+                toastMessage(
+                    [
+                        "Still playing?",
+                        "You could stop.",
+                        "Again?",
+                        "This is endless.",
+                        "The button remembers you.",
+                        "You trusted it again."
+                    ][
+                        Math.floor(
+                            Math.random()*6
+                        )
+                    ]
+                );
+            }
+
+            if(clicks >= 10){
+
+                level++;
+
+                clicks = 0;
+
+                addScore(100);
+
+                addRage(5);
+
+                loadLevel();
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   END GAME
+   ========================================================= */
+
+function endGame(){
+
+    if(!running)
+        return;
+
+    running = false;
+
+    clearLevel();
+
+    if(score > highScore){
+
+        highScore = score;
+
+        localStorage.setItem(
+            "rageHighScore",
+            highScore
+        );
+    }
+
+    finalScore.textContent =
+        score;
+
+    finalLevel.textContent =
+        level;
+
+    finalHighScore.textContent =
+        highScore;
+
+    showScreen(gameOverScreen);
+}
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(!running || paused)
+            return;
+
+        if(event.code === "Escape"){
+
+            togglePause();
+
+            return;
+        }
+
+        /*
+           Secret rage mechanic:
+           random keys are not necessarily helpful.
+        */
+
+        if(
+            event.code === "Space" ||
+            event.code === "Enter"
+        ){
+
+            addScore(1);
+
+            addRage(1);
+
+            if(
+                Math.random() < .1
+            ){
+
+                toastMessage(
+                    "Random button detected."
+                );
+            }
+        }
+    }
+);
+
+
+/* =========================================================
+   VISIBILITY
+   ========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    ()=>{
+
+        if(
+            document.hidden &&
+            running &&
+            !paused
+        ){
+
+            togglePause();
+        }
+    }
+);
+
+
+/* =========================================================
+   RESIZE
+   ========================================================= */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+        /*
+           Levels position themselves dynamically,
+           so the game remains usable on phones.
+        */
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+updateStats();
+
+</script>
+
+</body>
+</html>
